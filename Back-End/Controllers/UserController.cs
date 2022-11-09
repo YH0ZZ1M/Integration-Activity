@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using BackEnd.Dtos;
+using BackEnd.Dtos.Users;
 using BackEnd.Models;
 using BackEnd.Repositories;
 
@@ -19,7 +19,7 @@ public class UserController : ControllerBase
 
     //READ ALL
     [HttpGet("Get All")]
-    public async Task<ActionResult<RepositoryResponse<List<GetUserDto>>>> Get()
+    public async Task<ActionResult<RepositoryResponse<List<GetUserDto>>>> GetUser()
         {
             return Ok(await repository.GetAllUsers());
         }

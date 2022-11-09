@@ -2,32 +2,66 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using BackEnd.Models;
-using BackEnd.Repositories;
+using BackEnd.Dtos.Users;
+using BackEnd.Data;
 
 namespace BackEnd.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        
-        public void DeleteUser(int id)
+        public DataContext _context;
+
+        public UserRepository(DataContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<RepositoryResponse<List<GetUserDto>>> GetAllUsers()
+        {
+            // var response =  new RepositoryResponse<List<GetUserDto>>();
+            // response.Data = await _context.Users.ToListAsync();
+            // return response;
+            //return await _context.Users.ToListAsync();
+             throw new NotImplementedException();
+        }
+
+        public Task<RepositoryResponse<GetUserDto>> GetUser(int id)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<RepositoryResponse<User>> CreateUser(CreateUserDto newUser)
         {
             throw new NotImplementedException();
         }
 
-        public User GetUser(int id)
+        public Task<RepositoryResponse<GetUserDto>> DeleteUser(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<RepositoryResponse<GetUserDto>>>GetAllUsers()
+        public Task<RepositoryResponse<GetUserDto>> UpdateUser(UpdateUserDto newUser)
         {
-            var response = new RepositoryResponse<List<GetCharacterDto>>();
-            var dbCharacters = await _context.Characters.
-            Where(c=> c.User.Id == GetUserId()).ToListAsync(); 
-            response.Data = dbCharacters.Select(c=> _mapper.Map<GetCharacterDto>(c)).ToList();
-            return response;
+            throw new NotImplementedException();
         }
-
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
