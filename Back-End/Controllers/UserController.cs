@@ -10,26 +10,24 @@ namespace BackEnd.Controllers;
 
 public class UserController : ControllerBase
 {
-    private readonly IUserRepository repository;
-
+    public IUserRepository repository;
     public UserController(IUserRepository repository)
     {
         this.repository = repository;
     }
 
+    #region Name
+        
+    #endregion
     //READ ALL
     [HttpGet("Get All")]
-    public async Task<ActionResult<RepositoryResponse<List<GetUserDto>>>> GetUser()
+    public async Task<IEnumerable<GetUserDto>> GetAllUsers()
         {
-            return Ok(await repository.GetAllUsers());
+            var response = (await repository.GetAllUsers()).Select(user => user.AsDto());
+            return response;
         }
 
-    //CREATE
-    //[HttpPost]
-    //public ActionResult<UpdateUserDto> UpdateUser();
-    
-
-    //READ 
+    //READ BY ID
     [HttpGet("{id}")]
     public ActionResult<GetUserDto> GetUser(int id)
     {
@@ -58,6 +56,14 @@ public class UserController : ControllerBase
      //   repository.UpdateUser(UpdatedUser);
         return NoContent();
     }
+
+     //CREATE
+    [HttpPost]
+    public ActionResult<UpdateUserDto> UpdateUser()
+    {
+        throw new NotImplementedException();
+    }
+    
 
     //DELETE
     [HttpDelete("{id}")]

@@ -11,15 +11,5 @@ namespace BackEnd.Dtos.Users
         public string Email {get;set;} = string.Empty;
         public double Phone {get;set;} 
         public List<Inventory>? Items { get; set; }
-
-        public GetUserDto(User u)
-        {
-            Id = u.Id;
-            Name = u.Name;
-            UserType = u.UserType;
-            Email = u.Email;
-            Phone = u.Phone;
-            List<Inventory> Items = new();
-        }
     } 
 }

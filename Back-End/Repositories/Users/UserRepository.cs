@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using BackEnd.Models;
 using BackEnd.Dtos.Users;
 using BackEnd.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Repositories
 {
@@ -18,30 +19,32 @@ namespace BackEnd.Repositories
             _context = context;
         }
 
-        public async Task<RepositoryResponse<List<GetUserDto>>> GetAllUsers()
+        public async Task<IEnumerable<User>>GetAllUsers()
         {
-            // var response =  new RepositoryResponse<List<GetUserDto>>();
-            // response.Data = await _context.Users.ToListAsync();
-            // return response;
-            //return await _context.Users.ToListAsync();
-             throw new NotImplementedException();
+            return await _context.Users.ToListAsync();            
         }
 
-        public Task<RepositoryResponse<GetUserDto>> GetUser(int id)
+        public async Task<GetUserDto> GetUser(int id)
         {
-            throw new NotImplementedException();
-        }
-        public Task<RepositoryResponse<User>> CreateUser(CreateUserDto newUser)
-        {
-            throw new NotImplementedException();
+            var response = await _context.Users.FirstOrDefaultAsync(c => c.Id == id);
+            if (response is null)
+            {
+                throw new NullReferenceException($"User with ID {id} not found");
+            }
+            return response.AsDto();
         }
 
-        public Task<RepositoryResponse<GetUserDto>> DeleteUser(int id)
+        public Task<GetUserDto> CreateUser(CreateUserDto newUser)
         {
             throw new NotImplementedException();
         }
 
-        public Task<RepositoryResponse<GetUserDto>> UpdateUser(UpdateUserDto newUser)
+        public Task<GetUserDto> DeleteUser(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<GetUserDto> UpdateUser(UpdateUserDto newUser)
         {
             throw new NotImplementedException();
         }

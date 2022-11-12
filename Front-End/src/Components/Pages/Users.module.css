@@ -1,3 +1,32 @@
+
 .table{
-    position: center;
+    position: fixed;
+    margin-left: 10cm;
+    margin-right: 4cm;
+    margin-top: 2.65cm;
+    overflow: scroll;
+    max-width: fit-content;
 }
+
+.trh{
+    background-color: rgba(109, 107, 226, 0.733);
+    color: #fff;
+}
+.th1{
+    min-width: 2.5rem;
+}
+
+.th2{
+    min-width: 6rem;
+}
+
+.th3{
+    min-width: 12rem;
+}
+
+.content{
+    text-align: center;
+    align-items: center;
+    align-content: center;
+}
+
