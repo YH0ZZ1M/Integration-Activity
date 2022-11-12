@@ -7,9 +7,9 @@ namespace BackEnd.Repositories
     {
         Task<GetUserDto> GetUser(int id);
         Task<IEnumerable<User>> GetAllUsers();
-        Task<GetUserDto> DeleteUser(int id);
-        Task<GetUserDto> UpdateUser(UpdateUserDto newUser);
-        Task<GetUserDto> CreateUser(CreateUserDto newUser);
+        User DeleteUser(int id);
+        User UpdateUser(UpdateUserDto newUser);
+        User CreateUser(CreateUserDto newUser);
 
     }
 }

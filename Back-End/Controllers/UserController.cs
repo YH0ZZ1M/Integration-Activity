@@ -6,7 +6,7 @@ using BackEnd.Repositories;
 namespace BackEnd.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("Users")]
 
 public class UserController : ControllerBase
 {
@@ -16,9 +16,6 @@ public class UserController : ControllerBase
         this.repository = repository;
     }
 
-    #region Name
-        
-    #endregion
     //READ ALL
     [HttpGet("Get All")]
     public async Task<IEnumerable<GetUserDto>> GetAllUsers()
@@ -42,43 +39,24 @@ public class UserController : ControllerBase
 
     //UPDATE
     [HttpPut("{id}")]
-    public ActionResult UpdatedUser(int id)
+    public ActionResult<User> UpdateUser(UpdateUserDto newUser)
     {
-        var registeredUser = repository.GetUser(id);
-
-        if (registeredUser is null)
-        {
-            return NotFound();
-        }
-
-     //   User registereduser = registereduser with { Id = UserDto.Id, Name = UserDto.Name, Email = UserDto.Email };
-
-     //   repository.UpdateUser(UpdatedUser);
-        return NoContent();
+        return Ok(repository.UpdateUser(newUser));
     }
 
      //CREATE
     [HttpPost]
-    public ActionResult<UpdateUserDto> UpdateUser()
+    public ActionResult<User> CreateUser(CreateUserDto newUser)
     {
-        throw new NotImplementedException();
+        return Ok(repository.CreateUser(newUser));
     }
     
 
     //DELETE
     [HttpDelete("{id}")]
 
-    public ActionResult DeleteUser(int id)
+    public ActionResult<User> DeleteUser(int id)
     {
-        var registeredUser = repository.GetUser(id);
-
-        if (registeredUser is null)
-        {
-            return NotFound();
-        }
-
-        repository.DeleteUser(id);
-
-        return NoContent();
+        return Ok(repository.DeleteUser(id));
     }
 }

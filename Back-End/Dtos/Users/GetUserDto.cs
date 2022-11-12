@@ -10,6 +10,5 @@ namespace BackEnd.Dtos.Users
         public TypeUser UserType {get; set;}
         public string Email {get;set;} = string.Empty;
         public double Phone {get;set;} 
-        public List<Inventory>? Items { get; set; }
     } 
 }

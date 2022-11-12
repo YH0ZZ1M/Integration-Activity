@@ -13,7 +13,7 @@ namespace BackEnd.Data
 
         public DbSet<Inventory> Items => Set<Inventory>();
         public DbSet<User> Users => Set<User>();
-
+        
         //public DbSet<Exchange> Exchanges => Set<Exchange>();
     }
 }

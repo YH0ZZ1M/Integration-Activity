@@ -12,21 +12,31 @@ namespace BackEnd.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public DataContext _context;
+        public UserCollec _coll {get;}
+
+        public UserRepository(UserCollec collection)
+        {
+            this._coll = collection;
+        }
+
+        public DataContext _context {get;}
 
         public UserRepository(DataContext context)
         {
-            _context = context;
+            this._context = context;
         }
 
+        //GET ALL USERS
+        
         public async Task<IEnumerable<User>>GetAllUsers()
         {
             return await _context.Users.ToListAsync();            
         }
 
+        //GET USER
         public async Task<GetUserDto> GetUser(int id)
         {
-            var response = await _context.Users.FirstOrDefaultAsync(c => c.Id == id);
+            var response = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
             if (response is null)
             {
                 throw new NullReferenceException($"User with ID {id} not found");
@@ -34,19 +44,52 @@ namespace BackEnd.Repositories
             return response.AsDto();
         }
 
-        public Task<GetUserDto> CreateUser(CreateUserDto newUser)
+        //CREATE NEW USER
+        public User CreateUser(CreateUserDto newUser)
         {
-            throw new NotImplementedException();
+            User ne = new User(){
+                Id = _coll.collection.Count +1,
+                Name = newUser.Name,
+                UserType = (TypeUser) newUser.UserType,
+                Email = newUser.Email,
+                Phone = newUser.Phone,
+            };
+            _coll.collection.Add(ne);
+            return ne;
         }
 
-        public Task<GetUserDto> DeleteUser(int id)
+        //DELETE USER
+        public User DeleteUser(int id)
         {
-            throw new NotImplementedException();
+            User ol = _coll.collection.Find(u => u.Id ==id);
+             if (ol is null)
+            {
+                throw new NullReferenceException($"User not found");
+            }
+            _coll.collection.Remove(ol);
+            return ol;
         }
 
-        public Task<GetUserDto> UpdateUser(UpdateUserDto newUser)
+        //UPDATE USER
+        public User UpdateUser(UpdateUserDto newUser)
         {
-            throw new NotImplementedException();
+            User up = _coll.collection.Find(u => u.Id == newUser.Id);
+            if (up != null)
+            {
+                int ind = _coll.collection.IndexOf(up);
+                User ne = new User(){
+                    Id = _coll.collection.Count +1,
+                    Name = newUser.Name,
+                    UserType = (TypeUser) newUser.UserType,
+                    Email = newUser.Email,
+                    Phone = newUser.Phone,
+                };
+                _coll.collection[ind] = ne;
+                return _coll.collection[ind];
+            } 
+                else{
+                    return new User();
+                }
         }
     }
 }
